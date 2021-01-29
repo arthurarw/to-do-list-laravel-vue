@@ -7,7 +7,14 @@ module.exports = {
         parser: 'babel-eslint',
     },
     settings: {
-        'import/resolver': 'webpack',
+        'import/resolver': {
+            node: {
+                extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.vue'],
+            },
+            webpack: {
+                config: require.resolve('@vue/cli-service/webpack.config.js'),
+            },
+        },
     },
     extends: [
         'eslint:recommended',
@@ -27,7 +34,7 @@ module.exports = {
         'no-unused-vars': ['error', { 'args': 'after-used' }],
         'vue/html-indent': ['error', 4],
         'vue/no-v-html': 'off',
-        'vue/script-indent': ['error', 4, {
+        'vue/script-indent': ['error', 2, {
             baseIndent: 1,
             switchCase: 1,
         }],
@@ -42,5 +49,17 @@ module.exports = {
         'import/no-absolute-path': 'error',
         'import/newline-after-import': 'error',
         'import/no-unresolved': ['error'],
+        'import/extensions': [
+            'error',
+            'ignorePackages',
+            {
+                js: 'never',
+                mjs: 'never',
+                jsx: 'never',
+                ts: 'never',
+                tsx: 'never',
+                vue: 'never',
+            },
+        ],
     },
 };
