@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $url = 'http://google.com';
+    return \Illuminate\Support\Facades\Redirect::intended($url);
 });
