@@ -4,7 +4,7 @@
 
         <div
             v-if="response.message"
-            :class="`rounded-sm bg-${response.color}-300 p-4 mb-4`"
+            :class="`rounded-sm bg-${response.color}-100 p-4 mb-4`"
         >
             <h3 :class="`text-sm leading-5 font-medium text-${response.color}`">
                 {{ response.message }}
