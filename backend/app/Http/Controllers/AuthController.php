@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthForgotPasswordRequest;
 use App\Http\Requests\AuthLoginRequest;
 use App\Http\Requests\AuthRegisterRequest;
+use App\Http\Requests\AuthResetPasswordRequest;
 use App\Http\Requests\AuthVerifyEmailRequest;
 use App\Http\Resources\UserResource;
 use App\Services\AuthService;
@@ -65,5 +67,27 @@ class AuthController extends Controller
         $user = $this->authService->verifyEmail($input['token']);
 
         return new UserResource($user);
+    }
+
+    /**
+     * @param AuthForgotPasswordRequest $request
+     * @return mixed
+     */
+    public function forgotPassword(AuthForgotPasswordRequest $request)
+    {
+        $input = $request->validated();
+
+        return $this->authService->forgotPassword($input['email']);
+    }
+
+    /**
+     * @param AuthResetPasswordRequest $request
+     * @return string
+     * @throws \App\Exceptions\ResetPasswordTokenInvalidException
+     */
+    public function resetPassword(AuthResetPasswordRequest $request): string
+    {
+        $input = $request->validated();
+        return $this->authService->resetPassword($input['email'], $input['password'], $input['token']);
     }
 }
