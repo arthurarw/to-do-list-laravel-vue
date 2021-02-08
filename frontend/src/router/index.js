@@ -4,6 +4,8 @@ import LayoutAuth from '@/layouts/Auth';
 import Login from '@/views/Login';
 import Register from '@/views/Register';
 import VerifyEmail from '@/views/VerifyEmail';
+import ForgotPassword from '@/views/ForgotPassword';
+import ResetPassword from '@/views/ResetPassword';
 
 Vue.use(VueRouter);
 
@@ -26,6 +28,20 @@ const routes = [
         path: '/verificar-email', component: LayoutAuth,
         children: [
             {path: '', name: 'verifyEmail', component: VerifyEmail},
+        ],
+    },
+
+    {
+        path: '/esqueci-minha-senha', component: LayoutAuth,
+        children: [
+            {path: '', name: 'forgotPassword', component: ForgotPassword},
+        ],
+    },
+
+    {
+        path: '/recuperar-senha', component: LayoutAuth,
+        children: [
+            {path: '', name: 'resetPassword', component: ResetPassword},
         ],
     },
 ];
