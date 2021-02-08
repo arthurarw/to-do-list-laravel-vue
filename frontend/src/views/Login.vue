@@ -80,7 +80,7 @@
 
 <script>
 import LoginMenu from "@/components/Auth/LoginMenu";
-import Cookies from 'js-cookie';
+import Cookie from "@/service/cookie";
 import {ValidationObserver, ValidationProvider} from 'vee-validate';
 import messages from '@/utils/messages';
 
@@ -125,14 +125,18 @@ export default {
 
             this.$axios.post('v1/login', payload).then((response) => {
                 const token = `${response.data.token_type} ${response.data.access_token}`;
-                Cookies.set('teste', token, {expires: 30});
+                Cookie.setToken(token);
 
                 this.$store.commit('user/STORE_USER', response.data.data);
+
+                this.$router.push({name: 'index'});
             }).catch((e) => {
                 this.spinner.login = false;
                 const errorCode = e?.response?.data?.error || 'ServerError';
                 this.response.color = 'red';
                 this.response.message = messages[errorCode];
+            }).finally(() => {
+                this.spinner.login = false;
             });
         },
 
