@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center justify-between h-13 bg-gray-900 px-5">
+    <div class="flex items-center justify-between h-13 bg-gray-900 p-5">
         <div class="flex items-center">
             <svg
                 class="h-6 w-6 text-blue-500"
@@ -41,7 +41,7 @@
                         />
                     </svg>
 
-                    {{ user.first_name }}
+                    Olá, {{ user.firstname }}
                 </template>
 
                 <TwDropdownItem :to="{ name: 'profile' }">
