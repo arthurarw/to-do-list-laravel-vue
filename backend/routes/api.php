@@ -2,8 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\AuthController;
-use \App\Http\Controllers\MeController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MeController;
+use App\Http\Controllers\TodoController;
 
 Route::get('/ping', function () {
     return response()->json(['message' => 'pong']);
@@ -20,6 +21,11 @@ Route::prefix('v1')->group(function () {
     Route::prefix('me')->group(function () {
         Route::get('', [MeController::class, 'index']);
         Route::put('', [MeController::class, 'update']);
+    });
+
+    Route::prefix('todos')->group(function () {
+        Route::get('', [TodoController::class, 'index']);
+        Route::post('', [TodoController::class, 'store']);
     });
 
 
