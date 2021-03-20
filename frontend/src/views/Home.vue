@@ -36,13 +36,12 @@
             >
         </div>
 
-        <div v-for="todo in todos" :key="todo.id"
-        class="flex items-center justify-between bg-gray-300 rounded-sm p-2 h-15 mb-2">
-            <div>
-                <input type="text" v-model="todo.label" @keyup.enter="updateTodo(todo)">
-                <button @click.stop.prevent="destroyTodo(todo)">x</button>
-            </div>
-        </div>
+        <TodoCard
+            v-for="todo in todos"
+            :key="todo.id"
+            :todo="todo"
+            @afterDeleting="afterDeleting"
+        />
 
 
     </div>
@@ -50,8 +49,13 @@
 
 <script>
 
+import TodoCard from '../components/Todos/TodoCard';
 export default {
     name: 'Home',
+
+    components: {
+        TodoCard,
+    },
 
     data() {
         return {
@@ -90,20 +94,6 @@ export default {
             this.$axios.post('v1/todos', payload).then((response) => {
                 this.todos.unshift({ ...response.data.data, state: 'show' });
                 this.newTodo = '';
-            });
-        },
-
-        updateTodo(todo) {
-            const payload = {
-                label: todo.label
-            };
-
-            this.$axios.put(`v1/todos/${todo.id}`, payload);
-        },
-
-        destroyTodo(todo) {
-            this.$axios.delete(`v1/todos/${todo.id}`).then(() => {
-                this.afterDeleting(todo);
             });
         },
 
