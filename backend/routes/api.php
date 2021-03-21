@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MeController;
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\TodoTaskController;
 
 Route::get('/ping', function () {
     return response()->json(['message' => 'pong']);
@@ -25,9 +26,16 @@ Route::prefix('v1')->group(function () {
 
     Route::prefix('todos')->group(function () {
         Route::get('', [TodoController::class, 'index']);
+        Route::get('{todo}', [TodoController::class, 'show']);
         Route::post('', [TodoController::class, 'store']);
         Route::put('{todo}', [TodoController::class, 'update']);
         Route::delete('{todo}', [TodoController::class, 'destroy']);
+        Route::post('{todo}/tasks', [TodoController::class, 'addTask']);
+    });
+
+    Route::prefix('todo-tasks')->group(function () {
+        Route::put('{todoTask}', [TodoTaskController::class, 'update']);
+        Route::delete('{todoTask}', [TodoTaskController::class, 'destroy']);
     });
 
 
