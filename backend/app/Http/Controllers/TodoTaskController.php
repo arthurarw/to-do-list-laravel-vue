@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TodoTaskUpdateRequest;
 use App\Http\Resources\TodoTaskResource;
 use App\Models\TodoTask;
+use Illuminate\Auth\Access\AuthorizationException;
 
 /**
  * Class TodoTaskController
@@ -20,13 +21,16 @@ class TodoTaskController extends Controller
         $this->middleware('auth:api');
     }
 
+
     /**
      * @param TodoTask $todoTask
      * @param TodoTaskUpdateRequest $request
      * @return TodoTaskResource
+     * @throws AuthorizationException
      */
-    public function update(TodoTask $todoTask, TodoTaskUpdateRequest $request)
+    public function update(TodoTask $todoTask, TodoTaskUpdateRequest $request): TodoTaskResource
     {
+        $this->authorize('update', $todoTask);
         $input = $request->validated();
 
         $todoTask->fill($input);
@@ -35,8 +39,13 @@ class TodoTaskController extends Controller
         return new TodoTaskResource($todoTask);
     }
 
+    /**
+     * @param TodoTask $todoTask
+     * @throws AuthorizationException
+     */
     public function destroy(TodoTask $todoTask)
     {
+        $this->authorize('destroy', $todoTask);
         $todoTask->delete();
     }
 }
