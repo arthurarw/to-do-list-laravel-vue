@@ -8,7 +8,7 @@
     "dev": "vue-cli-service serve --skip-plugins @vue/cli-plugin-eslint"
   },
   "dependencies": {
-    "@tailwindcss/postcss7-compat": "^2.0.2",
+    "@tailwindcss/postcss7-compat": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "autoprefixer": "^9.8.6",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
